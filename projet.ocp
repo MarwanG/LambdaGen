@@ -1,0 +1,13 @@
+begin library "lambda_calcul"
+	sort = true
+	files = [
+          "types.ml"
+	  "environnement.ml"
+      	]
+end
+
+begin program "main"
+      sort = true
+      files = ["main.ml"]
+      requires = ["lambda_calcul"]
+end
