@@ -1,8 +1,0 @@
-'/usr/bin/ocamlopt' '-bin-annot' '-c' '-o' '_obuild/10/boltzmann_type.cmx' '-I' './_obuild/lambda_calcul' '-I' '.' 'boltzmann_type.ml' 
-'/usr/bin/ocamlc' '-a' '-o' '_obuild/lambda_calcul/lambda_calcul.cma' '_obuild/lambda_calcul/types.cmo' '_obuild/lambda_calcul/boltzmann_type.cmo' '_obuild/lambda_calcul/environnement.cmo' 
-'/usr/bin/ocamldep' '-modules' '-I' './_obuild/main' '-I' '.' '-I' './_obuild/lambda_calcul' 'main.ml' > _obuild/main/main.mlmods
-'/usr/bin/ocamlc' '-bin-annot' '-c' '-o' '_obuild/21/main.cmo' '-I' './_obuild/main' '-I' '.' '-I' './_obuild/lambda_calcul' 'main.ml' 
-mv _obuild/10/boltzmann_type.cmi _obuild/lambda_calcul/boltzmann_type.cmi
-mv _obuild/10/boltzmann_type.cmx _obuild/lambda_calcul/boltzmann_type.cmx
-mv _obuild/10/boltzmann_type.o _obuild/lambda_calcul/boltzmann_type.o
-mv? _obuild/10/boltzmann_type.cmt _obuild/lambda_calcul/boltzmann_type.cmt
