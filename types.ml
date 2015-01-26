@@ -19,3 +19,16 @@ and term_const = Int of int
 and unop = Moins
 
 and binop = Plus
+
+let rec string_of_type t =
+  match t with 
+    | Const_type c -> "int"
+    | Fun_type (t1,t2) -> "("^(string_of_type t1)^"->"^(string_of_type t2)^")"
+
+let rec string_of_exp t =
+  match t with 
+    |Const (Int i) -> string_of_int i 
+    |  Var s -> s            
+    |  App (t1,t2) ->  "("^(string_of_exp t1)^") ("^(string_of_exp t2)^")"          
+    |  Abs (s,t) ->  "(fun "^s^" -> "^(string_of_exp t)^")" 
+    | _ -> ""        
