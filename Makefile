@@ -13,7 +13,7 @@
 EXEC=generateur
 CC=ocamlc
 FLAGS=-annot
-SRC=types.ml boltzmann_type.ml environnement.ml main.ml
+SRC=types.ml environnement.ml boltzmann_type.ml main.ml
 
 OBJ=$(SRC:.ml=.cmo)
 all: $(EXEC)

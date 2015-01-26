@@ -39,35 +39,18 @@ let generate z =
 let gen_type z =
   tree_to_term_type  (generate z)
 
-(* let random_fun_int () =
-  Abs ("x", Const (Int 70))
-    
-let random_app taille typ = 
-  if taille = 0 then
-    match typ with 
-      | Const_type Int_type -> random_fun_int ()
-      | _ -> failwith "lol"
-  else
-    let rnd = Random.int taille in
-      App (random_app (rnd), (random_int (taille - rnd)))
-  
-and rec random_int taille=
-  if taille = 0 then Const Int 0
-  else 
-    let rnd = Random.int taille in
-      App (random_app (rnd), (random_int (taille - rnd))) *)
-	
-
 let rec improvise t =
   match t with
-  | Const_type Int_type -> Const (Int 70)
-  | Fun_type (t1,t2) -> Abs("x", improvise t2)
+  | Const_type Int_type -> Const (Int (Random.int 10))
+  | Fun_type (t1,t2) -> 
+    try Environnement.search t
+    with 
+    | _ -> Abs("x", improvise t2)
 
 let rec gen_exp typ taille = 
-  if taille = 0 then 
+  if taille < 2 then 
     improvise typ
   else
-   
     let rnd_tree = generate 0.2499 in
     let rnd_type =  tree_to_term_type rnd_tree in 
     let size_rnd = size_tree rnd_tree in

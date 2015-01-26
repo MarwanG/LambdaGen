@@ -10,20 +10,16 @@ let rec sum_size i total =
 let average i =
   (sum_size i 0) / i
 
-
-let _ = 
+let _ =
+  Environnement.init();
   Random.self_init();
-  print_string "bonjour :)";
-  print_newline ();  
   let rnd_tree = generate 0.2499 in
-  print_string "blop\n";
   let rnd_type =  tree_to_term_type rnd_tree in  
-    print_string "blop\n";
   let exp = gen_exp rnd_type  10 in
-    print_string ( string_of_type (tree_to_term_type rnd_tree));
-    print_newline ();
+    print_string ("generation of a term of type: "^(string_of_type (tree_to_term_type rnd_tree)));
+    (*print_newline ();
     print_string "Size : ";
-    print_int (size_tree rnd_tree);
+    print_int (size_tree rnd_tree);*)
     print_newline();
-    print_string (string_of_exp exp)
-    
+    print_string (string_of_exp exp);
+    print_newline()   

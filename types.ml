@@ -27,8 +27,8 @@ let rec string_of_type t =
 
 let rec string_of_exp t =
   match t with 
-    |Const (Int i) -> string_of_int i 
-    |  Var s -> s            
-    |  App (t1,t2) ->  "("^(string_of_exp t1)^") ("^(string_of_exp t2)^")"          
-    |  Abs (s,t) ->  "(fun "^s^" -> "^(string_of_exp t)^")" 
-    | _ -> ""        
+    | Const (Int i) -> string_of_int i 
+    | Var s -> s            
+    | App (t1,t2) ->  "("^(string_of_exp t1)^") ("^(string_of_exp t2)^")"          
+    | Abs (s,t) ->  "(fun "^s^" -> "^(string_of_exp t)^")" 
+    | Binop (_,t1,t2) ->(string_of_exp t1)^" + "^(string_of_exp t2)    
