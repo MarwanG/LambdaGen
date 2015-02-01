@@ -1,0 +1,104 @@
+\documentclass[a4paper, 11pt]{article}
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{proof}
+
+
+
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.5,.2,.2}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{brown}{RGB}{140, 0, 0}
+
+\lstnewenvironment{OCaml}
+                  {\lstset{
+                      language=[Objective]Caml,
+                      breaklines=true,
+                      showstringspaces=false,
+                      commentstyle=\color{red},
+                      stringstyle=\color{darkgray},
+                      identifierstyle=\ttfamily,
+                      keywordstyle=\color{blue},
+                      escapeinside={/*}{*/},
+                      %xleftmargin=0.08\textwidth
+                    }
+                  }
+                  {}
+
+\title{Génération  de lambda termes pour du test}
+\author{Béatrice Carré, Marwan Ghanem, Ghiles Ziat}
+\date{February 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Un compilateur est généralement testé sur des programmes classiques, et ne peut pas être testé pour tous les cas possibles, pour resoudre cette probleme un solution est de genere d'expressions typeable et le passer au compilateur.
+
+Le but de ce projet est de générer aléatoirement des termes acceptés par le compilateur, afin de pouvoir tester 
+
+\section{La génération des types}
+Nous avons fait le choix de nous concentrer sur la génération d'expression plutôt que sur la génération de type. En effet une génération de type trop spécifique aurait rendu la génration d'expressions à même d'habiter ces types plus complexes. 
+Le système de type est donc simplifié et la génération d'expression peut se faire de manière plus souple.
+\begin{align*}
+Type : \tau ::= & \ Int \\
+               &\mid \tau_1 \rightarrow \tau_2\\
+\end{align*}
+On a défini notre structure arborescente comme ceci :
+\begin{align*}
+    \mathcal{A} &= \mathcal{B} + \mathcal{Z} \\
+    \mathcal{B} &= mathcal{A} \times \mathcal{A}\\
+\end{align*}
+On a décidé de mettre un poid  uniquement aux type feuilles.
+Ce qui nous donne une série génératrice définie ainsi :
+\begin{align*}
+        A(z) &= B(z) + z \\
+        B(z) &= A(z)^2
+\end{align*} 
+
+On a alors $A(z) =  A(z)^2 + z$
+
+La singularité est donc atteinte pour : $\rho$ = 0,25.
+
+\section{La construction des termes}
+\subsection{Les termes}
+Comme dans l'article source, la construction des termes se fait selon la règle de typage de l'application lue à l'envers.
+
+\begin{center}
+$\infer{C \vdash (e) : \tau}{{C\vdash e_1 : \rho\ } {\ C\vdash e_2 : \rho \rightarrow \tau}}$
+
+$\infer{}{}$
+\end{center}
+Ainsi, la génération d'un terme de type $\tau$ nous donnera soit une constante de ce type, soit l'application d'une fonction de type $\rho \rightarrow \tau$ à un terme de type $\rho$.
+Dans ce deuxième cas, il nous faut alors générer récursivement un terme de type $\rho$ qui pourra ensuite nécéssiter de générer un terme de type $\alpha$ ... 
+On introduit alors une notion de taille des termes qui va nous permttre de déterminer quand générer une application et quand générer une constante.
+
+\subsection{L'environnement}
+Pour avoir un meilleur controle sur la taille des termes générés nous avons mis en place un système d'environnements.
+
+\section{L'ajout des listes}
+L'intégration des listes modifie notre système de type ainsi :
+\begin{align*}
+Type : \tau ::= & \ Int \\
+                &\mid \tau list \\
+                &\mid \tau_1 \rightarrow \tau_2\\
+\end{align*}
+Nous avons volontairement élargi les listes d'entier à des listes de $\tau$.
+
+
+\section{Conclusion}
+C'est un problème difficile dans la mesure où
+
+\end{document}
