@@ -23,7 +23,8 @@ and binop = Plus
 
 let rec string_of_type t =
   match t with 
-    | Const_type c -> "int"
+    | Const_type Int_type -> "int"
+    | Const_type (List_type l)-> ("("^(string_of_type l)^" list) ")
     | Fun_type (t1,t2) -> "("^(string_of_type t1)^"->"^(string_of_type t2)^")"
 
 let rec string_of_exp t =
